@@ -21,7 +21,10 @@
     [ Validate ]*/
     var input = $('.validate-input .input100');
 
-    $('.validate-form').on('submit',function(){
+    $('.validate-form').on('submit', verificaionForm);
+    
+    function verificaionForm(e){
+        e.preventDefault();
         var check = true;
 
         for(var i=0; i<input.length; i++) {
@@ -31,8 +34,33 @@
             }
         }
 
-        return check;
-    });
+        if(check == true) {
+            var objectData = {
+                email: $('input[name=email]').val(),
+                password: $('input[name=pass]').val(),
+            };
+            sendData(objectData);
+        } else {
+            console.log(check);
+        }
+    };
+
+    function sendData(data) {
+
+            console.log(data);
+
+            $.ajax({
+                url: '../login.php',
+                type: 'POST',
+                data: {data: dados},
+                success: function(result){
+                  // Retorno se tudo ocorreu normalmente
+                },
+                error: function(jqXHR, textStatus, errorThrown) {
+                  // Retorno caso algum erro ocorra
+                }
+            });
+    };
 
 
     $('.validate-form .input100').each(function(){
