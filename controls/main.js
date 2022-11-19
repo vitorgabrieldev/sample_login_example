@@ -45,19 +45,19 @@
         }
     };
 
-    function sendData(data) {
+    function sendData(datas) {
 
-            console.log(data);
+            // --- * --- Converting The Object To JSON --- * ---
+            var data = JSON.stringify(datas);
+            datas = [];
 
             $.ajax({
-                url: '../login.php',
-                type: 'POST',
-                data: {data: dados},
-                success: function(result){
-                  // Retorno se tudo ocorreu normalmente
-                },
-                error: function(jqXHR, textStatus, errorThrown) {
-                  // Retorno caso algum erro ocorra
+                type: 'post',
+                url: 'sendData.php',
+                data: 'data=' + data,
+                //dataType: 'json',
+                success: function(ret) {
+                    document.write('<pre>' + ret +'</pre>');
                 }
             });
     };
